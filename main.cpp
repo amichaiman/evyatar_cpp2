@@ -4,8 +4,7 @@
 using namespace std;
 
 
-int main()
-{
+int main() {
     Board b;
     b.play();
     return 0;

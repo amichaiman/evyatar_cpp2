@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include<string>
+#include "BoardLocation.h"
 
 #ifndef BOARD_H
 #define BOARD_H
@@ -18,46 +19,24 @@ class Board {
 public:
     Board();
     virtual ~Board();
+
     void play();
-
-private:
-    typedef struct pair{
-        pair(int first, int second){
-            this->row = first;
-            this->col = second;
-        }
-        pair(string other){
-            this->other = other;
-        }
-
-        int row;
-        int col;
-        string other;
-    } turnPair;
-
-    typedef enum {A,B,C,D,E,F,G,H} column;
-    static const char WHITE = 'W';
-    static const char BLACK = 'B';
-    static const char VACANT = 'o'; //empty
     static const int ROWS = 8;
     static const int COLUMNS = 8;
+    static const char VACANT = 'o';
+    static const char WHITE = 'W';
+    static const char BLACK = 'B';
+
+    int getValue(int i, int j) const;
+    char getCurrentPlayer();
+    void setValue(int i, int j, char value);
+
+private:
+    typedef enum {A,B,C,D,E,F,G,H} column;
     char blackBoard[ROWS][COLUMNS];
     char currentPlayer;
-
-    inline void invalidInput() const;
-    inline void tie() const;
-
     void printBoardState();
-    void initalizeBoard();
-    bool boardFull();
-    void win(char player) const;
-    turnPair getInput();
-    bool isValidMove(int row, int col);
-    bool isValidDirection(int row, int col, int offsetI, int offsetJ);
-    void updateBoard(turnPair spot);
-    void flipColor(int row, int col, int offsetI, int offsetJ);
-    bool isInBoard(int i);
-    void declareWinner();
+    void initializeBoard();
 };
 
 #endif // BOARD_H
